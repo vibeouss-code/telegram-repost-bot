@@ -112,3 +112,22 @@ class TelegramRepostBot:
                     await self.client.run_until_disconnected()
             except Exception as e:
                 logger.error(f"💥 Disconnected: {e}")
+                await asyncio.sleep(30)
+            
+            if self.client.is_connected():
+                await self.client.disconnect()
+            await asyncio.sleep(10)
+
+async def main():
+    print("=" * 60)
+    print("🤖 TELEGRAM AUTO-REPOST BOT - MULTI-TARGET")
+    print("=" * 60)
+    print(f"Source: {os.getenv('SOURCE_CHANNEL')}")
+    print(f"Targets: {os.getenv('TARGET_CHANNELS')}")
+    print("=" * 60)
+    
+    bot = TelegramRepostBot()
+    await bot.run_forever()
+
+if __name__ == "__main__":
+    asyncio.run(main())
